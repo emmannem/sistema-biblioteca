@@ -1,1 +1,23 @@
-<p>multas works!</p>
+<div class="card p-4">
+  <h3>Multas</h3>
+
+  <table class="table">
+    <tr>
+      <th>Usuario</th>
+      <th>Libro</th>
+      <th>Total</th>
+    </tr>
+
+    @for (m of biblioteca.multas; track $index) {
+      <tr>
+        <td>{{ m.usuario }}</td>
+        <td>{{ m.libro }}</td>
+        <td class="text-danger fw-bold">${{ m.total }}</td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="3" class="text-center text-muted">No hay multas registradas actualmente.</td>
+      </tr>
+    }
+  </table>
+</div>
