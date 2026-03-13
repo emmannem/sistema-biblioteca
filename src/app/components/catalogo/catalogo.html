@@ -2,18 +2,21 @@
   <h3>Catálogo</h3>
 
   <table class="table table-striped">
-    <tr>
-      <th>Libro</th>
-    </tr>
-
-    @for (libro of biblioteca.catalogo; track libro) {
+    <thead>
       <tr>
-        <td>{{ libro }}</td>
+        <th>Título del Libro</th>
       </tr>
-    } @empty {
-      <tr>
-        <td>No hay libros disponibles en este momento.</td>
-      </tr>
-    }
+    </thead>
+    <tbody>
+      @for (libro of biblioteca.catalogo; track libro) {
+        <tr>
+          <td>{{ libro }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td>No hay libros disponibles en este momento.</td>
+        </tr>
+      }
+    </tbody>
   </table>
 </div>

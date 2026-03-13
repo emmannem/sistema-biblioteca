@@ -1,23 +1,29 @@
 <div class="card p-4">
-  <h3>Multas</h3>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Registro de Multas</h3>
+    <span class="badge bg-danger">Tarifa: ${{ biblioteca.MULTA_POR_DIA }} / día</span>
+  </div>
 
-  <table class="table">
-    <tr>
-      <th>Usuario</th>
-      <th>Libro</th>
-      <th>Total</th>
-    </tr>
-
-    @for (m of biblioteca.multas; track $index) {
+  <table class="table table-hover">
+    <thead class="table-dark">
       <tr>
-        <td>{{ m.usuario }}</td>
-        <td>{{ m.libro }}</td>
-        <td class="text-danger fw-bold">${{ m.total }}</td>
+        <th>Usuario</th>
+        <th>Libro</th>
+        <th>Total Acumulado</th>
       </tr>
-    } @empty {
-      <tr>
-        <td colspan="3" class="text-center text-muted">No hay multas registradas actualmente.</td>
-      </tr>
-    }
+    </thead>
+    <tbody>
+      @for (m of biblioteca.multas; track $index) {
+        <tr>
+          <td>{{ m.usuario }}</td>
+          <td>{{ m.libro }}</td>
+          <td class="text-danger fw-bold">${{ m.total }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="3" class="text-center text-muted">No hay multas registradas actualmente.</td>
+        </tr>
+      }
+    </tbody>
   </table>
 </div>

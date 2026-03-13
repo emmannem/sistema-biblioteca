@@ -1,27 +1,53 @@
-<div class="card p-4">
-  <h3>Solicitar préstamo</h3>
+<div class="card p-4 shadow-sm">
+  <h3 class="mb-3">Solicitar préstamo</h3>
 
-  <input class="form-control mb-2" [(ngModel)]="usuario" placeholder="Usuario" />
+  <div class="mb-2">
+    <label class="form-label small">Nombre del Usuario</label>
+    <input class="form-control" [(ngModel)]="usuario" placeholder="Ej: Juan Pérez" />
+  </div>
 
-  <input class="form-control mb-2" [(ngModel)]="titulo" placeholder="Libro" />
+  <div class="mb-3">
+    <label class="form-label small">Libro a prestar</label>
+    <input
+      class="form-control"
+      [(ngModel)]="titulo"
+      placeholder="Escribe para buscar..."
+      list="listaLibros"
+    />
+    <datalist id="listaLibros">
+      @for (libro of biblioteca.catalogo; track libro) {
+        <option [value]="libro"></option>
+      }
+    </datalist>
+  </div>
 
-  <button class="btn btn-success" (click)="prestamo()">Solicitar</button>
+  <button class="btn btn-success w-100" (click)="prestamo()" [disabled]="!usuario || !titulo">
+    Confirmar Préstamo
+  </button>
 </div>
 
-<table class="table mt-3">
-  <tr>
-    <th>Usuario</th>
-    <th>Libro</th>
-  </tr>
-
-  @for (p of biblioteca.prestamos; track $index) {
-    <tr>
-      <td>{{ p.usuario }}</td>
-      <td>{{ p.libro }}</td>
-    </tr>
-  } @empty {
-    <tr>
-      <td colspan="2" class="text-center">No hay préstamos activos.</td>
-    </tr>
-  }
-</table>
+<div class="mt-4">
+  <h4>Préstamos Activos</h4>
+  <table class="table table-hover mt-2">
+    <thead class="table-light">
+      <tr>
+        <th>Usuario</th>
+        <th>Libro</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of biblioteca.prestamos; track $index) {
+        <tr>
+          <td><i class="bi bi-person me-2"></i>{{ p.usuario }}</td>
+          <td><i class="bi bi-book me-2"></i>{{ p.libro }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="2" class="text-center text-muted">
+            No hay préstamos activos en este momento.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
